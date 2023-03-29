@@ -7,9 +7,9 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 ## 🧍‍♂️ Integrantes
 
-• María Carranza - carrazanmaria@gmail.com
+• María José Carranzán - carrazanmaria@gmail.com
 
-• Germán Garay - germandolagaray@gmail.com
+• Germán Isaias Dolagaray - germandolagaray@gmail.com
 
 • Luciano Blank - lublank@gmail.com
 
