@@ -45,4 +45,6 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 4- Ingresar a la carpeta del proyecto: cd dj-ecommerce-cac
 
-5- Ejecutar el servidor: python manage.py runserver
+5- Instalar dependencias: pip install -r requirements.txt
+
+6- Ejecutar el servidor: python manage.py runserver
