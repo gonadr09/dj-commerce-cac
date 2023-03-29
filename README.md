@@ -24,10 +24,7 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 
 
-## 📒 Info del TP
-
-Exposición final: Semana del 19/6 en adelante (Fecha 17 según Programa en adelante)
-
+## 📒 Información del TP
 
 El PIG deberá ser un sitio web con temática a elección, orientado a la gestión y que cumpla con los siguientes puntos:
 
@@ -75,13 +72,14 @@ relación de muchos a muchos.
 
 
 
-Condiciones de aprobación y metodología de entrega:
-
+## ✅ Condiciones de aprobación y metodología de entrega:
 
 Para aprobar el proyecto se requiere una exposición grupal del mismo en funcionamiento (se puede utilizar el ambiente de desarrollo) intentando no extender la misma más de 15 minutos. 
 
 Según decisión del instructor, en la exposición final se puede brindar la posibilidad de exponer mediante la preparación de un video, donde deberán exponer todas las personas que integren el equipo, en caso de no poder realizarlo en vivo.
- 
+
+Exposición final: Semana del 19/6 en adelante (Fecha 17 según Programa en adelante)
+
 
 
 ## 🚀 Descargar y ejecutar
