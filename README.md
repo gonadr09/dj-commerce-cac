@@ -35,7 +35,7 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 
 
-## Descargar y ejecutar servidor
+## 🚀 Descargar y ejecutar servidor
 
 1- Clonar repositorio: git clone https://github.com/gonadr09/dj-commerce-cac
 
