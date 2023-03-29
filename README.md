@@ -1,0 +1,35 @@
+# Ecommerce en Django
+Proyecto integrador grupal
+
+Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
+
+
+
+## 🧍‍♂️ Integrantes
+
+• María Carranza - carrazanmaria@gmail.com
+
+• Germán Garay - germandolagaray@gmail.com
+
+• Luciano Blank - lublank@gmail.com
+
+• Gonzalo Díaz Rusconi - gonzalo.diazrusconi@gmail.com
+
+
+
+## 💻 Tecnologías
+
+![DJANGO](https://img.shields.io/pypi/frameworkversions/django/coderedcms.svg)
+![PYTHON](https://img.shields.io/badge/Python-3776AB?logo=Python&logoColor=white&style=plastic)
+
+
+
+## 📒 Info del TP
+
+✔ 
+
+
+
+## 📄 Datos y descripción del TP
+
+● 
