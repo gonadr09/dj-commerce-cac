@@ -22,6 +22,10 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 <img src="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" alt="DJANGO-ICON" width="200"/>
 
 
+<img src="https://www.enterprisedb.com/sites/default/files/django_1.png" alt="DJANGO-ICON" width="200"/>
+
+
+
 ## 📒 Información del TP
 
 El PIG deberá ser un sitio web con temática a elección, orientado a la gestión y que cumpla con los siguientes puntos:
