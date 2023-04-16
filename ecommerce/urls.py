@@ -1,8 +1,8 @@
-from django.urls import path, include
+from django.urls import path
 from .views import index
 
 app_name = 'ecommerce'
 
 urlpatterns = [
-    path('', index, name='index'),
+    path('', index, name='home'),
 ]

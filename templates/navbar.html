@@ -1,7 +1,9 @@
 {% load static %}
+{% url 'ecommerce:home' as home_url %}
+
 <nav class="navbar navbar-expand-lg bg-body" data-bs-theme="dark">
     <div class="container-xl">
-    <a class="navbar-brand d-flex gap-1 align-items-center p-2 rounded shadow bg-opacity-50" href="#">
+    <a class="navbar-brand d-flex gap-1 align-items-center p-2 rounded shadow bg-opacity-50" href="{{ home_url }}">
         {% comment %} <img src="{% static 'img/dj-logo.jpg' %}" alt="" width="32px"> {% endcomment %}
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
             <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/>
@@ -17,7 +19,7 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link {% if request.path == home_url %} active {% endif %}" href="{{ home_url }}">Home</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Features</a>
@@ -31,9 +33,9 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown link</a>
             <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
         </li>
         </ul>
@@ -41,8 +43,10 @@
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             </form>
-            <button type="button" class="btn btn-light text-dark me-2">Login</button>
-            <button type="button" class="btn btn-primary">Sign-up</button>
+            <div class="d-flex">
+                <a href="{% url 'users:login' %}" class="btn btn-light text-dark me-2">Login</a>
+                <button type="button" class="btn btn-primary">Sign up</button>
+            </div>
         </div>
     </div>
     </div>

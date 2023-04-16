@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
-
 {% load static %}
+{% block title %}<title>DJ e-commerce - Inicio</title>{% endblock title %}
 
 {% block main %}
+
+{% include 'header.html'%}
+
     <main>
         <!-- Características -->
         <section class="container px-5 py-5" id="featured-3">
@@ -137,7 +140,7 @@
                      style="width: 25px; height:150px; background-image: linear-gradient(to right, #FFFFFF00, #FFFFFFFF);">
                 </div>
             </div>
-        </section>     
+        </section>   
 
         <!-- Descubrir -->
         <section class="container px-4 py-5" id="custom-cards">
@@ -214,7 +217,11 @@
                             <div class="card-footer bg-light py-4">
                                 <h5 class="card-title">$49.000</h5>
                                 <p class="card-text mb-3">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    <a href="#" class="btn btn-primary">
+                                    {% filter upper %}
+                                        Go somewhere
+                                    {% endfilter %}
+                                    </a>
                             </div>
                         </div>
                     </a>
