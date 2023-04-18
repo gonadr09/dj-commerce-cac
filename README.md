@@ -17,10 +17,12 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 
 
-## 💻 Tecnologías
+## 💻 Tecnología
 
-![PYTHON](https://img.shields.io/pypi/pyversions/cobras)
-![DJANGO](https://img.shields.io/pypi/frameworkversions/django/coderedcms.svg)
+<img src="https://static.djangoproject.com/img/logos/django-logo-negative.1d528e2cb5fb.png" alt="DJANGO-ICON" width="200"/>
+
+
+<img src="https://www.enterprisedb.com/sites/default/files/django_1.png" alt="DJANGO-ICON" width="200"/>
 
 
 
