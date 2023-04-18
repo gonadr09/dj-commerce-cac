@@ -19,33 +19,38 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-            <a class="nav-link {% if request.path == home_url %} active {% endif %}" href="{{ home_url }}">Home</a>
+            <a class="nav-link {% if request.path == home_url %} active {% endif %}" href="{{ home_url }}">Inicio</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Tienda</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Ofertas</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown link</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" href="#">Computación</a></li>
+                <li><a class="dropdown-item" href="#">Smarphones</a></li>
+                <li><a class="dropdown-item" href="#">Consolas</a></li>
+            </ul>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Más</a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Nosotros</a></li>
+                <li><a class="dropdown-item" href="#">FAQs</a></li>
+                <li><a class="dropdown-item" href="#">Ayuda</a></li>
             </ul>
         </li>
         </ul>
         <div class="d-flex flex-wrap gap-2">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             </form>
             <div class="d-flex">
-                <a href="{% url 'users:login' %}" class="btn btn-light text-dark me-2">Login</a>
-                <button type="button" class="btn btn-primary">Sign up</button>
+                <a href="{% url 'users:login' %}" class="btn btn-light text-dark me-2">Ingresar</a>
+                <button type="button" class="btn btn-primary">Registrarse</button>
             </div>
         </div>
     </div>

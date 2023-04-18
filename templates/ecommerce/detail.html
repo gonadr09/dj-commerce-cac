@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <main class="container my-5">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'ecommerce:home' %}">Inicio</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{ product.category }}</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-1">
+                {% for image in product.images %}
+                    <div class="border rounded p-1 m-1"><img src="{% static image %}" class="card-img-top" alt="..."></div>
+                {% endfor %}
+            </div>
+
+            <div class="col-7 text-center">
+                <img src="{% static product.images.0 %}" class="" alt="...">
+            </div>
+
+            <div class="col-4 card">
+                <div class="card-body mb-5">
+                    <h5 class="fs-4">{{ product.title }}</h5>
+                    <h6 class="fs-1 text-primary m-0">$ {{ product.price }}</h6>
+                    <p class="fw-semibold">{{ product.installment }} </p>
+                    <p class="card-text">{{ product.detail }}</p>
+                </div>
+                <div class="d-flex flex-column mb-3 gap-2">
+                    <button type="button" class="btn btn-secondary">Agregar a Carrito</button>
+                    <button type="button" class="btn btn-primary">Comprar</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}

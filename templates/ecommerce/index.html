@@ -4,10 +4,10 @@
 
 {% block main %}
 
-{% include 'header.html'%}
+{% include 'ecommerce/header.html'%}
 
     <main>
-        <!-- Características -->
+        <!-- Features -->
         <section class="container px-5 py-5" id="featured-3">
             <div class="row g-4 px-2 py-4 row-cols-1 row-cols-lg-3 text-center rounded border shadow">
                 <div class="feature col m-0 mt-1">
@@ -54,7 +54,7 @@
                         </g>
                     </svg>
                     <h3 class="fs-4">Hasta 6 cuotas sin interés</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <p>Pagá en efectivo, con débito o con tarjeta hasta 6 cuotas sin interés.</p>
                 </div>
                 <div class="feature col m-0 mt-1">
                     <svg width="56px" height="46px" viewBox="0 0 56 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -86,7 +86,7 @@
                         </g>
                     </svg>
                     <h3 class="fs-4">Envío gratis a todo el país</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <p>Todas tus compras, desde cualquier monto, tienen envío gratis incluido.</p>
                 </div>
                 <div class="feature col m-0 mt-1">
                     <svg width="51px" height="46px" viewBox="0 0 51 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -105,15 +105,15 @@
                         </g>
                     </svg>
                     <h3 class="fs-4">Sitio seguro</h3>
-                    <p>Paragraph of text beneath the heading to explain the heading.</p>
+                    <p>La información se transfiere cifrada gracias al que este sitio tiene certificado SSL.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Ofertas -->
+        <!-- On sales -->
         <section class="container px-4 py-5" id="custom-cards">
             <div class="d-flex justify-content-between align-items-center border-bottom">
-                <h2 class="">Productos</h2>
+                <h2 class="">Ofertas</h2>
                 <a class="icon-link icon-link-hover text-decoration-none" href="#">
                     Ver más
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16" aria-hidden="true">
@@ -122,15 +122,15 @@
                 </a>
             </div>
             <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
-                {% for i in '12345' %}
+                {% for product in products %}
                 <div class="d-block">
-                    <a class="text-decoration-none text-dark" href="#">
+                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:detail' product.id %}">
                         <div class="card shadow" style="width: 14.5rem;">
-                            <img src="{% static "img/product-tv.jpg"%}" class="card-img-top" alt="...">
+                            <img src="{% static product.images.0 %}" class="card-img-top" alt="...">
                             <div class="card-footer bg-light py-4">
-                                <h5 class="card-title">$49.000</h5>
-                                <p class="card-text mb-3">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <h5 class="card-title">$ {{ product.price }}</h5>
+                                <p class="card-text mb-3">{{ product.title|truncatechars:70 }}</p>
+                                <button class="btn btn-primary">Ver detalles</button>
                             </div>
                         </div>
                     </a>
@@ -142,7 +142,7 @@
             </div>
         </section>   
 
-        <!-- Descubrir -->
+        <!-- Discover -->
         <section class="container px-4 py-5" id="custom-cards">
             <h2 class="pb-2 border-bottom">Descubrí</h2>
             <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-3">
@@ -197,7 +197,7 @@
             </div>
         </section>
 
-        <!-- Productos -->
+        <!-- Productss -->
         <section class="container px-4 py-5" id="custom-cards">
             <div class="d-flex justify-content-between align-items-center border-bottom">
                 <h2 class="">Productos</h2>
@@ -209,19 +209,15 @@
                 </a>
             </div>
             <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
-                {% for i in '12345' %}
+                {% for product in products %}
                 <div class="d-block">
-                    <a class="text-decoration-none text-dark" href="#">
+                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:detail' product.id %}">
                         <div class="card shadow" style="width: 14.5rem;">
-                            <img src="{% static "img/product-smartphone.jpg"%}" class="card-img-top" alt="...">
+                            <img src="{% static product.images.0 %}" class="card-img-top" alt="...">
                             <div class="card-footer bg-light py-4">
-                                <h5 class="card-title">$49.000</h5>
-                                <p class="card-text mb-3">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">
-                                    {% filter upper %}
-                                        Go somewhere
-                                    {% endfilter %}
-                                    </a>
+                                <h5 class="card-title">$ {{ product.price }}</h5>
+                                <p class="card-text mb-3">{{ product.title|truncatechars:70 }}</p>
+                                <button class="btn btn-primary">Ver detalles</button>
                             </div>
                         </div>
                     </a>
