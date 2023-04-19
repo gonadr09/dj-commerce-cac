@@ -9,8 +9,8 @@
               <li class="breadcrumb-item active" aria-current="page">{{ product.category }}</li>
             </ol>
         </nav>
-        <div class="row">
-            <div class="col-1">
+        <div class="row bg-white rounded p-4">
+            <div class="col-1 p-0">
                 {% for image in product.images %}
                     <div class="border rounded p-1 m-1"><img src="{% static image %}" class="card-img-top" alt="..."></div>
                 {% endfor %}
