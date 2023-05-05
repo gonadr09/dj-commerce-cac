@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, CustomUserChangeForm
 from django.contrib import messages
 
 
 def login_view(request):
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated:  # ToDo: averiguar el decorador is_authenticated
         if request.method == 'POST':
             form = CustomAuthenticationForm(request, data=request.POST)
             if form.is_valid():
@@ -29,7 +29,7 @@ def logout_view(request):
 
 
 def signup_view(request):
-    if not request.user.is_authenticated:
+    if not request.user.is_authenticated:  # ToDo: averiguar el decorador is_authenticated
         if request.method == 'POST':
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():

@@ -3,9 +3,17 @@
 {% block title %}<title>DJ e-commerce - Login</title>{% endblock title %}
 
 {% block main %}
-{% for message in messages %}
-{{ message }} 
-{% endfor %}
+
+{% if messages %}
+<div class="text-start alert alert-success mb-4 position-absolute w-100" role="alert">
+  <div class="container">
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
 <main class="d-flex text-center" style="min-height: calc(100vh - 68px)">
   <section class="form-signin col-lg-3 m-auto">
     <div class="d-inline-flex gap-1 justify-content-center align-items-center p-2">
@@ -18,8 +26,10 @@
       </div>
     </div>
     <h1 class="h3 mb-3 fw-normal">Ingresar</h1>
+    
     <form method="POST">
       {% csrf_token %}
+
       <div class="form-floating mb-2">
         {{ form.username }}
         <label for="id_username" class="text-secondary">Usuario</label>
