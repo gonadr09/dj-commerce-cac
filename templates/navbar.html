@@ -58,7 +58,7 @@
                     </a>
                 {% else %}
                     <a href="{% url 'users:login' %}" class="btn btn-light text-dark me-2">Ingresar</a>
-                    <button type="button" class="btn btn-primary">Registrarse</button>
+                    <a href="{% url 'users:signup' %}" class="btn btn-primary me-2">Registrarse</a>
                 {% endif %}
             </div>
         </div>

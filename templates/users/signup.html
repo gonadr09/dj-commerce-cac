@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>DJ e-commerce - Signup</title>{% endblock title %}
+
+{% block main %}
+<main class="d-flex text-center" style="min-height: calc(100vh - 68px)">
+  <section class="form-signin col-lg-8 m-auto">
+    <div class="d-inline-flex gap-1 justify-content-center align-items-center p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
+          <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/>
+      </svg>
+      <div class="d-flex flex-column fw-semibold">
+          <span style="font-size: 16px">DJANGO</span>
+          <span style="font-size: 16px">E-COMMERCE</span>
+      </div>
+    </div>
+    <h1 class="h3 mb-3 fw-normal">Registrarse</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="d-flex justify-content-start align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-people-fill text-primary" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.777 11.777 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7.159 7.159 0 0 0 1.048-.625 11.775 11.775 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.541 1.541 0 0 0-1.044-1.263 62.467 62.467 0 0 0-2.887-.87C9.843.266 8.69 0 8 0zm-.55 8.502L7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0zM8.002 12a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+          </svg>
+        <span>Credenciales</span>
+      </div>
+      <div class="row my-2">
+
+        <div class="col-lg-6">
+          <div class="form-floating mb-2">
+            {{ form.username }}
+            <label for="id_username" class="text-secondary">Usuario</label>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-floating mb-3">
+            {{ form.email }}
+            <label for="id_email" class="text-secondary">Email</label>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-floating mb-2">
+            {{ form.password1 }}
+            <label for="id_username" class="text-secondary">Contraseña</label>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-floating mb-3">
+            {{ form.password2 }}
+            <label for="id_password" class="text-secondary">Confirmar contraseña</label>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="text-start text-danger mb-4">
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    </div>
+
+      <div class="d-flex justify-content-start align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-badge text-primary" viewBox="0 0 16 16">
+            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+            <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+          </svg>
+        <span>Perfil</span>
+      </div>
+      <div class="row my-2">
+
+        <div class="col-lg-6">
+          <div class="form-floating mb-2">
+            {{ form.first_name }}
+            <label for="id_username" class="text-secondary">Nombre</label>
+          </div>
+        </div>
+  
+        <div class="col-lg-6">
+          <div class="form-floating mb-3">
+            {{ form.last_name }}
+            <label for="id_email" class="text-secondary">Apellido</label>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="form-floating mb-2">
+            {{ form.dni }}
+            <label for="id_username" class="text-secondary">DNI</label>
+          </div>
+        </div>
+        
+        <div class="col-lg-6">
+          <div class="form-floating mb-3">
+            {{ form.phone }}
+            <label for="id_password" class="text-secondary">Teléfono</label>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-floating mb-2">
+            {{ form.address }}
+            <label for="id_username" class="text-secondary">Dirección</label>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-floating mb-2">
+            {{ form.city }}
+            <label for="id_username" class="text-secondary">Ciudad</label>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="form-floating mb-3">
+            {{ form.state }}
+            <label for="id_password" class="text-secondary">Provincia</label>
+          </div>
+        </div>
+
+      </div>
+      <button class="w-100 btn btn-lg btn-primary " type="submit">Registrarse</button>
+
+      {% comment %} 
+      <div class="d-inline-flex">
+        <button class="w-100 btn btn-lg btn-primary " type="submit">Registrarse</button>
+      </div>
+      {% endcomment %}
+    </form>
+  </section>
+</main>
+{% endblock %}

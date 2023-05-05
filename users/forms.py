@@ -2,17 +2,30 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, UsernameField
 from .models import CustomUser
 from django.utils.translation import gettext, gettext_lazy as _
+from django.contrib.auth import password_validation
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ('__all__')
+        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'dni', 'phone', 'address', 'city', 'state')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = ' '
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ('__all__')
+        fields = ('username', 'email', 'first_name', 'last_name', 'dni', 'phone', 'address', 'city', 'state')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['placeholder'] = ' '
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = UsernameField(

@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
 from django.contrib import messages
 
@@ -14,66 +13,34 @@ def login_view(request):
                 login(request, user)
                 return redirect('ecommerce:home')
             else:
-                messages.error(request, "Usuario y/o contraseña inválido/a")
-                return render(request, 'users/login.html')        
+                messages.error(request, form.errors)
+                #messages.error(request, "Usuario y/o contraseña inválido/a")
+                return render(request, 'users/login.html', {'form': form})        
         else:
-            context = {'form': CustomAuthenticationForm}
-            return render(request, 'users/login.html', context)
+            return render(request, 'users/login.html', {'form': CustomAuthenticationForm})
     else:
+        messages.error(request, 'Ya estás logueado en el sitio')
         return redirect('ecommerce:home')
-
+    
 
 def logout_view(request):
     logout(request)
     return redirect('ecommerce:home')
 
 
-
-'''
-
-def signup(request):
-    if request.method == 'GET':
-        return render(request, 'signup.html', {'form': UserCreationForm})
-    else:
-        try:
-            if request.POST['password1'] == request.POST['password2']:
-                print(request.POST)
-                username = request.POST['username']
-                password = request.POST['password1']
-                user = User.objects.create_user(username=username, password=password)
-                user.save()
-                login(request, user)
-                return redirect('tasks')
+def signup_view(request):
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = CustomUserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request, '¡Tu cuenta ha sido creada correctamente! Ya podés iniciar sesión.')
+                return redirect('users:login')
             else:
-                return render(request, 'signup.html', {
-                    'form': UserCreationForm,
-                    'submit_message': 'Passwords do not mach'
-                })
-        except IntegrityError:
-            return render(request, 'signup.html', {
-                    'form': UserCreationForm,
-                    'submit_message': 'User already exist'
-                })
-
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {'form': AuthenticationForm})
-    else:
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is None:
-            return render(request, 'signin.html', {
-                'form': AuthenticationForm,
-                'error': 'User or password incorrect'
-                })
+                messages.error(request, form.errors)
+                return render(request, 'users/signup.html', {'form': form})
         else:
-            login(request, user)
-            return redirect('tasks')
-
-@login_required
-def signout(request):
-    logout(request)
-    return redirect('home')
-
-'''
+            return render(request, 'users/signup.html', {'form': CustomUserCreationForm})
+    else:
+        messages.error(request, 'Ya estás logueado en el sitio')
+        return redirect('ecommerce:home')

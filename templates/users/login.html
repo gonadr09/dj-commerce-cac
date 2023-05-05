@@ -3,10 +3,10 @@
 {% block title %}<title>DJ e-commerce - Login</title>{% endblock title %}
 
 {% block main %}
+{% for message in messages %}
+{{ message }} 
+{% endfor %}
 <main class="d-flex text-center" style="min-height: calc(100vh - 68px)">
-  {% for message in messages %}
-    {{ message }}
-  {% endfor %}
   <section class="form-signin col-lg-3 m-auto">
     <div class="d-inline-flex gap-1 justify-content-center align-items-center p-2">
       <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
