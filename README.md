@@ -13,6 +13,10 @@ Curso Django de Codo a Codo 4.0 - Comisión #23316 - Prof: Luciano Pueyo
 
 • Gonzalo Díaz Rusconi - gonzalo.diazrusconi@gmail.com
 
+• Ezequiel Martin Alasia  - elencapuchado@gmail.com
+
+• Jose De Felippe - josdef07@gmail.com
+
 
 
 ## 💻 Tecnología
