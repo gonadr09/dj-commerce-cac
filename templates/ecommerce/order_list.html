@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>DJ e-commerce - Order list</title>{% endblock title %}
+
+{% block main %}
+<main class="d-flex" style="min-height: calc(100vh - 300px)">
+    <div class="card shadow-custom border-0 col-lg-8 mx-auto m-5 p-3">  
+      <h2 class="font-weight-bold text-grey mt-2 text-center">Pedidos</h2>
+        {% for pedido in pedidos %}
+          <a href="{% url 'pedido:pedido_detalle' pedido.id %}"><h5>Pedido nº{{ pedido.id }}</h5></a>
+          <div class="table-responsive">
+          <table class="table table-bordered table-sm" style="table-layout: fixed;">
+            <thead>
+              <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody class="border">
+            {% for item in pedido.items.all %}
+              <tr>
+                <td scope="row">{{ item.producto.nombre }}</td>
+                <td>{{ item.precio }}</td>
+                <td>{{ item.cantidad}}</td>
+                <td>{{ item.get_costo}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+{% comment %}             <tfoot class="border">
+              <td scope="row" colspan="3" class="text-rigth">Total</td>
+              <td>{{ pedido.get_costo_total }}</td>
+            </tfoot> {% endcomment %}
+          </table>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div>
+    
+  </div>
+</main>
+{% endblock %}
+

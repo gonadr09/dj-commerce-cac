@@ -57,7 +57,7 @@ def home(request):
     return render(request, 'ecommerce/index.html', context)
 
 
-def detail(request, id):
+def product_detail(request, id):
     product = None
     for item in products:
         if item['id'] == id:
@@ -65,8 +65,16 @@ def detail(request, id):
             break
     if product:
         context = {'product': product}
-        return render(request, 'ecommerce/detail.html', context)
+        return render(request, 'ecommerce/product_detail.html', context)
     else:
         return HttpResponseNotFound('Producto no encontrado. <a href="/">Volver al inicio</a>')
+
+
+def order_list(request):
+    return render(request, 'ecommerce/order_list.html')
+
+def order_detail(request):
+    return render(request, 'ecommerce/order_detail.html')
+
 
 

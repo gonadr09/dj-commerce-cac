@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ar'
 
 TIME_ZONE = 'UTC'
 
@@ -131,5 +131,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "users.CustomUser"
-#LOGIN_REDIRECT_URL = "ecommerce:home"
-#LOGOUT_REDIRECT_URL = "ecommerce:home"
+LOGIN_URL = "users:login"
+LOGIN_REDIRECT_URL = "ecommerce:home"
+LOGOUT_REDIRECT_URL = "ecommerce:home"

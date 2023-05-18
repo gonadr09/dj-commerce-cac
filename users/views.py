@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
-from .forms import CustomAuthenticationForm, CustomUserCreationForm, CustomUserChangeForm
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .forms import CustomAuthenticationForm, CustomUserCreationForm, CustomUserChangeForm
 
 
 def login_view(request):
@@ -13,13 +14,10 @@ def login_view(request):
                 login(request, user)
                 return redirect('ecommerce:home')
             else:
-                messages.error(request, form.errors)
-                #messages.error(request, "Usuario y/o contraseña inválido/a")
-                return render(request, 'users/login.html', {'form': form})        
+                return render(request, 'users/login.html', {'form': form})
         else:
             return render(request, 'users/login.html', {'form': CustomAuthenticationForm})
     else:
-        messages.error(request, 'Ya estás logueado en el sitio')
         return redirect('ecommerce:home')
     
 
@@ -37,10 +35,30 @@ def signup_view(request):
                 messages.success(request, '¡Tu cuenta ha sido creada correctamente! Ya podés iniciar sesión.')
                 return redirect('users:login')
             else:
-                messages.error(request, form.errors)
                 return render(request, 'users/signup.html', {'form': form})
         else:
             return render(request, 'users/signup.html', {'form': CustomUserCreationForm})
     else:
-        messages.error(request, 'Ya estás logueado en el sitio')
         return redirect('ecommerce:home')
+    
+
+@login_required
+def profile_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=user)
+        if form.is_valid():
+            print(user.username)
+            print(form.cleaned_data['username'])
+            if form.cleaned_data['username'] == user.username:
+                form.save()
+                messages.success(request, 'Perfil actualizado con éxito', extra_tags='success')
+                return redirect('users:profile')
+            else:
+                messages.error(request, 'Error al guardar', extra_tags='danger')
+                return render(request, 'users/profile.html', {'form': form})
+        else:
+            return render(request, 'users/profile.html', {'form': form})
+    else:
+        form = CustomUserChangeForm(instance=user)
+        return render(request, 'users/profile.html', {'form': form})

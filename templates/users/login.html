@@ -4,19 +4,9 @@
 
 {% block main %}
 
-{% if messages %}
-<div class="text-start alert alert-success mb-4 position-absolute w-100" role="alert">
-  <div class="container">
-    {% for message in messages %}
-      {{ message }}
-    {% endfor %}
-  </div>
-</div>
-{% endif %}
-
 <main class="d-flex text-center" style="min-height: calc(100vh - 68px)">
   <section class="form-signin col-lg-3 m-auto">
-    <div class="d-inline-flex gap-1 justify-content-center align-items-center p-2">
+    <div class="d-inline-flex gap-1 justify-content-center align-items-center p-2 mb-3">
       <svg xmlns="http://www.w3.org/2000/svg" width="42" height="42" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
           <path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/>
       </svg>
@@ -25,7 +15,7 @@
           <span style="font-size: 16px">E-COMMERCE</span>
       </div>
     </div>
-    <h1 class="h3 mb-3 fw-normal">Ingresar</h1>
+    {% comment %} <h1 class="h3 mb-3 fw-normal">Ingresar</h1> {% endcomment %}
     
     <form method="POST">
       {% csrf_token %}
@@ -38,11 +28,19 @@
         {{ form.password }}
         <label for="id_password" class="text-secondary">Contraseña</label>
       </div>
-      
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Recordarme
-        </label>
+
+      <div class="message mb-3">
+        <div class="text-danger text-start">
+          {% for fields, messages in form.errors.items %}
+          <div class="d-flex gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="mt-1" fill="currentColor" viewBox="0 0 16 16" style="min-width: fit-content">
+              <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
+              <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>
+            </svg>
+            {{ messages }}
+          </div>
+          {% endfor %}
+        </div>
       </div>
      
       <button class="w-100 btn btn-lg btn-primary" type="submit">Ingresar</button>

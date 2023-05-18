@@ -141,7 +141,7 @@
             <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
                 {% for product in products %}
                 <div class="d-block">
-                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:detail' product.id %}">
+                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
                         <div class="card shadow" style="width: 14.5rem;">
                             <img src="{% static product.images.0 %}" class="card-img-top" alt="...">
                             <div class="card-footer bg-light py-4">
@@ -347,7 +347,7 @@
         <section class="container px-4 pb-5 pt-0" id="custom-cards">
             <a href="#" class="row py-3 text-decoration-none">
                 <div class="col-12 col-lg-7 p-0">
-                    <img src="{% static 'img/card-tech.jpg' %}" class="w-100" alt="novedades">
+                    <img src="{% static 'img/card-tech.jpg' %}" class="w-100 h-100" alt="novedades">
                 </div>
                 <div class="col-12 col-lg-5 p-0 text-white justify-content-center p-5" style="background-color: #661375">
                         <small class="m-0" style="letter-spacing: 3px">
@@ -384,7 +384,7 @@
             <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
                 {% for product in products %}
                 <div class="d-block">
-                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:detail' product.id %}">
+                    <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
                         <div class="card shadow" style="width: 14.5rem;">
                             <img src="{% static product.images.0 %}" class="card-img-top" alt="...">
                             <div class="card-footer bg-light py-4">
