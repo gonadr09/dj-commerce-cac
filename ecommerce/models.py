@@ -12,11 +12,7 @@ class Producto(models.Model):
     descripcion = models.CharField(verbose_name="Descripción de Producto")
     precio = models.IntegerField(verbose_name="Precio")
     categoria = models.ForeignKey(Categoria)
-    # agregar categoria
-
-
-class Categoria(models.Model):
-    nombre = models.CharField(max_length=128, verbose_name="Nombre Categoría")
+    imagen = models.ImageField()
 
 
 class Compra(models.Model):
