@@ -52,6 +52,7 @@ products = [
     },
 ]
 
+
 def home(request):
     context = {'products': products}
     return render(request, 'ecommerce/index.html', context)
@@ -73,8 +74,6 @@ def product_detail(request, id):
 def order_list(request):
     return render(request, 'ecommerce/order_list.html')
 
+
 def order_detail(request):
     return render(request, 'ecommerce/order_detail.html')
-
-
-

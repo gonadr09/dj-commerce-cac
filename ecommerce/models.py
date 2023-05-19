@@ -3,19 +3,19 @@ from users.models import CustomUser
 
 
 class Tag(models.Model):
-    nombre = models.CharField(max_length=128, verbose_name="Nombre Etiqueta")
+    name = models.CharField(max_length=128, verbose_name="Etiqueta")
 
     class Meta:
         verbose_name = 'Etiqueta'
         verbose_name_plural = 'Etiquetas'
 
     def __str__(self):
-        return self.nombre
+        return self.name
     
 
 class Category(models.Model):
-    nombre = models.CharField(max_length=128, verbose_name="Nombre Categoría")
-    padre = models.ForeignKey('self', related_name='Hijos', on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=128, verbose_name="Categoría")
+    padre = models.ForeignKey('self', related_name='Children', on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=128, unique=True, editable=False)
 
     class Meta:
@@ -23,53 +23,56 @@ class Category(models.Model):
         verbose_name_plural = 'Categorias'
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
 
 class Product(models.Model):
-    nombre = models.CharField(max_length=128, verbose_name="Nombre producto")
+    name = models.CharField(max_length=128, verbose_name="Nombre de producto")
     stock = models.IntegerField(verbose_name="Cantidad en stock")
-    descripcion = models.CharField(max_length=255, verbose_name="Descripción de producto")
-    precio = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio")
-    categoria = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
-    etiquetas = models.ManyToManyField(Tag, blank=True)
-    imagen = models.ImageField(upload_to='producto/')
-    creado = models.DateTimeField(auto_now_add=True)
-    actualizado = models.DateTimeField(auto_now=True)
+    description = models.CharField(max_length=255, verbose_name="Descripción de producto")
+    price = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio")
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Categoría")
+    tag = models.ManyToManyField(Tag, blank=True, verbose_name="Etiqueta")
+    image = models.ImageField(upload_to='producto/', verbose_name="Imagen")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Creado")
+    updated = models.DateTimeField(auto_now=True, verbose_name="Actualizado")
 
     class Meta:
         verbose_name = 'Producto'
         verbose_name_plural = 'Productos'
 
     def __str__(self):
-        return self.nombre
+        return self.name
 
 
 class Order(models.Model):
-    PEDIDO_ESTADO = [
+    STATUS_ORDER = [
        ('I', 'Ingresado'),
        ('P', 'Procesando'),
        ('C', 'Cancelado'),
        ('F', 'Finalizado')
     ]
-    estado = models.CharField(max_length=1, choices=PEDIDO_ESTADO, default='I')
-    usuario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    creado = models.DateTimeField(auto_now_add=True)
-    actualizado = models.DateTimeField(auto_now=True)
+    status = models.CharField(max_length=1, choices=STATUS_ORDER, default='I')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
 
     def __str__(self):
-        return self.pedido
+        return self.id
 
 
 class OrderProduct(models.Model):
-    pedido = models.ForeignKey(Order, on_delete=models.CASCADE)
     producto = models.ForeignKey(Product, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(verbose_name="Cantidad")
+    pedido = models.ForeignKey(Order, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name = 'Detalle de Pedido'
-        verbose_name_plural = 'Detalles de Pedido'
+        verbose_name = 'Producto del pedido'
+        verbose_name_plural = 'Productos del Pedido'
+
+    def __str__(self):
+        return self.producto
