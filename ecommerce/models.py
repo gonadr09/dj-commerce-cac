@@ -2,7 +2,7 @@ from django.db import models
 from users.models import CustomUser
 
 
-class Etiqueta(models.Model):
+class Tag(models.Model):
     nombre = models.CharField(max_length=128, verbose_name="Nombre Etiqueta")
 
     class Meta:
@@ -13,7 +13,7 @@ class Etiqueta(models.Model):
         return self.nombre
     
 
-class Categoria(models.Model):
+class Category(models.Model):
     nombre = models.CharField(max_length=128, verbose_name="Nombre Categoría")
     padre = models.ForeignKey('self', related_name='Hijos', on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=128, unique=True, editable=False)
@@ -26,13 +26,13 @@ class Categoria(models.Model):
         return self.nombre
 
 
-class Producto(models.Model):
+class Product(models.Model):
     nombre = models.CharField(max_length=128, verbose_name="Nombre producto")
     stock = models.IntegerField(verbose_name="Cantidad en stock")
     descripcion = models.CharField(max_length=255, verbose_name="Descripción de producto")
     precio = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio")
-    categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, blank=True, null=True)
-    etiquetas = models.ManyToManyField(Etiqueta, blank=True)
+    categoria = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
+    etiquetas = models.ManyToManyField(Tag, blank=True)
     imagen = models.ImageField(upload_to='producto/')
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
@@ -45,7 +45,7 @@ class Producto(models.Model):
         return self.nombre
 
 
-class Pedido(models.Model):
+class Order(models.Model):
     PEDIDO_ESTADO = [
        ('I', 'Ingresado'),
        ('P', 'Procesando'),
@@ -65,9 +65,9 @@ class Pedido(models.Model):
         return self.pedido
 
 
-class PedidoProducto(models.Model):
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+class OrderProduct(models.Model):
+    pedido = models.ForeignKey(Order, on_delete=models.CASCADE)
+    producto = models.ForeignKey(Product, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(verbose_name="Cantidad")
 
     class Meta:
