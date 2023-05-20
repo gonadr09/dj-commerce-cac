@@ -1,8 +1,9 @@
+from typing import Any, Dict
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Product
 from django.http import HttpResponseNotFound
 
-
-# Create your views here.
 
 products = [
     {
@@ -53,9 +54,14 @@ products = [
 ]
 
 
-def home(request):
-    context = {'products': products}
-    return render(request, 'ecommerce/index.html', context)
+class Home(ListView):
+    model = Product
+    template_name = 'ecommerce/index.html'
+
+
+class DetailProduct(DetailView):
+    model = Product
+    template_name = 'ecommerce/product_detail.html'
 
 
 def product_detail(request, id):
@@ -77,3 +83,7 @@ def order_list(request):
 
 def order_detail(request):
     return render(request, 'ecommerce/order_detail.html')
+
+
+def error_404(request, exception):
+    return render(request, '404.html', status=404)

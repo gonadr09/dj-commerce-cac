@@ -6,7 +6,7 @@ from .forms import CustomAuthenticationForm, CustomUserCreationForm, CustomUserC
 
 
 def login_view(request):
-    if not request.user.is_authenticated:  # ToDo: averiguar el decorador is_authenticated
+    if not request.user.is_authenticated:
         if request.method == 'POST':
             form = CustomAuthenticationForm(request, data=request.POST)
             if form.is_valid():
@@ -27,7 +27,7 @@ def logout_view(request):
 
 
 def signup_view(request):
-    if not request.user.is_authenticated:  # ToDo: averiguar el decorador is_authenticated
+    if not request.user.is_authenticated:
         if request.method == 'POST':
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():

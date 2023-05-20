@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'users',
+    'ecommerce',
 ]
 
 MIDDLEWARE = [
@@ -88,12 +89,12 @@ POSTGRESQL = {
         'NAME': 'dj-ecommerce-cac',
         'USER': 'postgres',
         'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
 
-DATABASES = SQLITE
+DATABASES = POSTGRESQL
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

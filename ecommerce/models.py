@@ -1,22 +1,25 @@
 from django.db import models
 from users.models import CustomUser
+from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 
 class Tag(models.Model):
     name = models.CharField(max_length=128, verbose_name="Etiqueta")
+    slug = models.SlugField(max_length=128, unique=True)
 
     class Meta:
         verbose_name = 'Etiqueta'
         verbose_name_plural = 'Etiquetas'
 
     def __str__(self):
-        return self.name
-    
+        return self.name   
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=128, verbose_name="Categoría")
+    name = models.CharField(max_length=128, verbose_name="Categoría", unique=True)
     padre = models.ForeignKey('self', related_name='Children', on_delete=models.CASCADE, blank=True, null=True)
-    slug = models.SlugField(max_length=128, unique=True, editable=False)
+    slug = models.SlugField(max_length=128, unique=True)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -25,12 +28,20 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_ancestors(self):
+        ancestors = []
+        category = self
+        while category.padre:
+            ancestors.append(category.padre)
+            category = category.padre
+        return ancestors
 
 class Product(models.Model):
     name = models.CharField(max_length=128, verbose_name="Nombre de producto")
-    stock = models.IntegerField(verbose_name="Cantidad en stock")
     description = models.CharField(max_length=255, verbose_name="Descripción de producto")
     price = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio")
+    on_sale = models.BooleanField(default=False, verbose_name="Oferta")
+    stock = models.IntegerField(verbose_name="Cantidad en stock")
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True, verbose_name="Categoría")
     tag = models.ManyToManyField(Tag, blank=True, verbose_name="Etiqueta")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Creado")
@@ -43,6 +54,12 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+    def get_main_image(self):
+        return self.image_set.first()
+
+    def get_images(self):
+        return self.image_set.all()
+    
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -53,7 +70,7 @@ class Image(models.Model):
         verbose_name_plural = 'Imágenes'
 
     def __str__(self):
-        return self.image
+        return self.image.name
 
 
 class Order(models.Model):
@@ -67,6 +84,7 @@ class Order(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    products = models.ManyToManyField(Product, through='OrderProduct')
 
     class Meta:
         verbose_name = 'Pedido'

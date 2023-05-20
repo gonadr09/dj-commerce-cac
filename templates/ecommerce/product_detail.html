@@ -3,29 +3,36 @@
 
 {% block main %}
     <main class="container my-5">
+        
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{% url 'ecommerce:home' %}">Inicio</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{ product.category }}</li>
+                <li class="breadcrumb-item"><a href="{% url 'ecommerce:home' %}">Tienda</a></li>
+                {% for category in object.category.get_ancestors %}
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'ecommerce:home' %}">{{ category }}</a></li>
+                {% endfor %}
+                <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'ecommerce:home' %}">{{ product.category }}</a></li>
             </ol>
         </nav>
         <div class="row bg-white rounded p-4">
             <div class="col-1 p-0">
-                {% for image in product.images %}
-                    <div class="border rounded p-1 m-1"><img src="{% static image %}" class="card-img-top" alt="..."></div>
+                {% for image in object.get_images %}
+                    <div class="border rounded p-1 m-1"><img src="{{ image.image.url }}" class="card-img-top product_images" alt="..."></div>
                 {% endfor %}
             </div>
 
             <div class="col-7 text-center">
-                <img src="{% static product.images.0 %}" class="" alt="...">
+                <img id="main_image" src="{{ object.get_main_image.image.url }}" class="" alt="...">
             </div>
 
             <div class="col-4 card">
                 <div class="card-body mb-5">
-                    <h5 class="fs-4">{{ product.title }}</h5>
-                    <h6 class="fs-1 text-primary m-0">$ {{ product.price }}</h6>
-                    <p class="fw-semibold">{{ product.installment }} </p>
-                    <p class="card-text">{{ product.detail }}</p>
+                    {% for tag in object.tag.all %}
+                        <a href="#" class="badge rounded-pill text-bg-warning link-underline link-underline-opacity-0">{{ tag }}</a>
+                    {% endfor %}
+                    <h5 class="fs-4 mt-3">{{ object.name }}</h5>
+                    {{ object.get_ancestors }}
+                    <h6 class="fs-1 text-primary my-3">$ {{ object.price }}</h6>
+                    <p>{{ object.description }}</p>
                 </div>
                 <div class="d-flex flex-column mb-3 gap-2">
                     <button type="button" class="btn btn-secondary">Agregar a Carrito</button>
@@ -35,4 +42,9 @@
 
         </div>
     </main>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/changeProductImages.js' %}"></script>
 {% endblock %}
