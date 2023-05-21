@@ -1,0 +1,62 @@
+{% load humanize %}
+
+<div class="d-grid gap-2 d-md-flex justify-content-end sticky-top pt-2">
+    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+        aria-controls="offcanvasRight">Ver carrito <i class="fa-solid fa-cart-shopping"></i></button>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel" style="--bs-offcanvas-width: 500px">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">Carrito de compras <i
+                class="fa-solid fa-cart-shopping"></i></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Suma</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">            
+                {% if request.session.cart.items %}
+                {% for key, value in request.session.cart.items %}
+                <tr>
+                    <td>
+                        {% comment %} {{ value.name }} {% endcomment %}
+                        <img src="{{ value.image }}" style="width: 50px;">
+                    </td>
+                    <td>
+                        <a href="{% url 'cart:subtract' key %}" class="btn btn-sm btn-danger" style="width: 27px;">-</a>
+                        <span class="mx-2">{{ value.amount }}</span>
+                        <a href="{% url 'cart:add' key %}" class="btn btn-sm btn-success" style="width: 27px;">+</a>
+                    </td>
+                    <td>
+                        ${{ value.sum|intcomma }}
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="3">
+                        <div class="alert alert-danger text-center">
+                            Sin productos
+                        </div>
+                    </td>
+                </tr>
+                {% endif %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        Total: ${{ get_cart_total }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>

@@ -1,7 +1,6 @@
 from django.db import models
 from users.models import CustomUser
 from django.utils.text import slugify
-from django.core.exceptions import ValidationError
 
 
 class Tag(models.Model):
@@ -35,6 +34,7 @@ class Category(models.Model):
             ancestors.append(category.padre)
             category = category.padre
         return ancestors
+
 
 class Product(models.Model):
     name = models.CharField(max_length=128, verbose_name="Nombre de producto")

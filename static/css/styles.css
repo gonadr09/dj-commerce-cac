@@ -6,3 +6,63 @@ main{
     list-style: none;
     padding: 0;
 }
+
+.bg-size-cover {
+    background-size: cover;
+}
+
+.bg-position-center {
+    background-position: center;
+}
+
+.bg-purple {
+    background-color: #661375;
+}
+
+.letter-spacing {
+    letter-spacing: 3px
+}
+
+table {
+    table-layout: fixed;
+}
+
+.fs-7{
+    font-size: 12px;
+}
+
+.discount {
+   /*  transform: scaleX(-1) rotate(80deg); */
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    z-index: 999;
+}
+
+/* index */
+
+.banner {
+    min-height: 200px;
+    max-height: 350px;
+    object-fit: cover;
+}
+
+.gradient-product-row {
+    width: 25px;
+    height:150px;
+    background-image: linear-gradient(to right, #FFFFFF00, #E9ECEF);
+}
+
+.category-card {
+    width: 170px; height: 170px
+}
+
+/* product-detail */
+
+.product_images:hover {
+    cursor: pointer;
+}
+
+#main_image {
+    max-width: 500px;
+}

@@ -3,13 +3,13 @@
 {% block title %}<title>DJ e-commerce - Order list</title>{% endblock title %}
 
 {% block main %}
-<main class="d-flex" style="min-height: calc(100vh - 300px)">
+<main class="d-flex">
     <div class="card shadow-custom border-0 col-lg-8 mx-auto m-5 p-3">  
       <h2 class="font-weight-bold text-grey mt-2 text-center">Pedidos</h2>
         {% for pedido in pedidos %}
           <a href="{% url 'pedido:pedido_detalle' pedido.id %}"><h5>Pedido nº{{ pedido.id }}</h5></a>
           <div class="table-responsive">
-          <table class="table table-bordered table-sm" style="table-layout: fixed;">
+          <table class="table table-bordered table-sm">
             <thead>
               <tr>
                 <th scope="col">Producto</th>

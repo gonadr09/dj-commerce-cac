@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'users',
     'ecommerce',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.get_cart_total'
             ],
         },
     },
@@ -147,3 +150,5 @@ AUTH_USER_MODEL = "users.CustomUser"
 LOGIN_URL = "users:login"
 LOGIN_REDIRECT_URL = "ecommerce:home"
 LOGOUT_REDIRECT_URL = "ecommerce:home"
+
+USE_THOUSAND_SEPARATOR = True
