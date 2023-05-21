@@ -1,5 +1,5 @@
 main{
-    min-height: calc(100vh - 175px);
+    min-height: calc(100vh - 65px);
 }
 
 .errorlist {
@@ -13,6 +13,11 @@ main{
 
 .bg-position-center {
     background-position: center;
+}
+
+.cards-shadow:hover {
+    box-shadow: 0 .5rem 1rem rgb(0, 0, 0, .3)!important;
+    transition: .25s
 }
 
 .bg-purple {

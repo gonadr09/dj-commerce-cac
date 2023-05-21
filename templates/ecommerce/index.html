@@ -139,7 +139,7 @@
                     </svg>
                 </a>
             </div>
-            <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
+            <div class="position-relative d-flex px-3 py-4 gap-4 overflow-x-hidden">
                 {% for product in object_list %}
                     {% if product.on_sale == True %}
                         <div class="d-block position-relative">
@@ -173,10 +173,10 @@
                                 </svg>
                             {% endif %}
                             <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
-                                <div class="card shadow" style="width: 14.5rem;">
+                                <div class="card shadow cards-shadow" style="width: 14.5rem;">
                                     <img src="{{ product.get_main_image.image.url }}" class="card-img-top" alt="{{ product.name }}">
                                     <div class="card-footer bg-light py-4">
-                                        <h5 class="card-title">$ {{ product.price }}</h5>
+                                        <h5 class="card-title text-primary fs-4">$ {{ product.price }}</h5>
                                         <p class="card-text mb-3">{{ product.name|truncatechars:70 }}</p>
                                         <button class="btn btn-primary">Ver detalles</button>
                                     </div>
@@ -411,7 +411,7 @@
                     </svg>
                 </a>
             </div>
-            <div class="position-relative d-flex py-4 gap-4 overflow-x-hidden">
+            <div class="position-relative d-flex px-3 py-4 gap-4 overflow-x-hidden">
                 {% for product in object_list %}
                     {% if product.category.name == 'Smartphones' %}
                     <div class="d-block position-relative">
@@ -445,10 +445,10 @@
                             </svg>
                         {% endif %}
                             <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
-                                <div class="card shadow" style="width: 14.5rem;">
+                                <div class="card shadow cards-shadow" style="width: 14.5rem;">
                                     <img src="{{ product.get_main_image.image.url }}" class="card-img-top" alt="{{ product.name }}">
                                     <div class="card-footer bg-light py-4">
-                                        <h5 class="card-title">$ {{ product.price }}</h5>
+                                        <h4 class="card-title text-primary">$ {{ product.price }}</h4>
                                         <p class="card-text mb-3">{{ product.name|truncatechars:70 }}</p>
                                         <button class="btn btn-primary">Ver detalles</button>
                                     </div>

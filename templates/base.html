@@ -13,8 +13,10 @@
 
 <body class="bg-body-secondary">
     {% include 'navbar.html' %}
-
-    {% include 'cart/widget.html' %}
+    
+    {% if user.is_authenticated %}
+        {% include 'cart/widget.html' %}
+    {% endif %}
 
     {% include 'messages.html' %}
 
