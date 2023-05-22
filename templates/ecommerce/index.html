@@ -132,14 +132,14 @@
         <section class="container px-4 py-5" id="custom-cards">
             <div class="d-flex justify-content-between align-items-center border-bottom">
                 <h2 class="">Ofertas</h2>
-                <a class="icon-link icon-link-hover text-decoration-none" href="#">
+                <a class="icon-link icon-link-hover text-decoration-none" href="{% url 'ecommerce:on-sales' %}">
                     Ver más
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16" aria-hidden="true">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                 </a>
             </div>
-            <div class="position-relative d-flex px-3 py-4 gap-4 overflow-x-hidden">
+            <div class="position-relative d-flex px-2 py-4 gap-4 overflow-x-hidden">
                 {% for product in object_list %}
                     {% if product.on_sale == True %}
                         <div class="d-block position-relative">
@@ -173,11 +173,13 @@
                                 </svg>
                             {% endif %}
                             <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
-                                <div class="card shadow cards-shadow" style="width: 14.5rem;">
+                                <div class="card h-100 bg-light shadow cards-shadow" style="width: 14.5rem;">
                                     <img src="{{ product.get_main_image.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                                    <div class="card-footer bg-light py-4">
-                                        <h5 class="card-title text-primary fs-4">$ {{ product.price }}</h5>
-                                        <p class="card-text mb-3">{{ product.name|truncatechars:70 }}</p>
+                                    <div class="card-body border-top py-3">
+                                        <h4 class="card-title text-primary">$ {{ product.price }}</h4>
+                                        <p class="card-text m-0">{{ product.name|truncatechars:70 }}</p>
+                                    </div>
+                                    <div class="ps-3 pb-3">
                                         <button class="btn btn-primary">Ver detalles</button>
                                     </div>
                                 </div>
@@ -390,7 +392,7 @@
                                 Hasta 20% de descuento y cuotas fijas
                             {% endfilter %}
                         </h2>
-                        <div>
+                        <div class="icon-link icon-link-hover text-decoration-none">
                             Ver más
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -400,18 +402,18 @@
             </a>
         </section>
 
-        <!-- Gamer products -->
+        <!-- Smartphones products -->
         <section class="container px-4 py-5" id="custom-cards">
             <div class="d-flex justify-content-between align-items-center border-bottom">
                 <h2 class="">Smartphones</h2>
-                <a class="icon-link icon-link-hover text-decoration-none" href="#">
+                <a class="icon-link icon-link-hover text-decoration-none" href="{% url 'ecommerce:category' 'smartphones'  %}">
                     Ver más
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16" aria-hidden="true">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                     </svg>
                 </a>
             </div>
-            <div class="position-relative d-flex px-3 py-4 gap-4 overflow-x-hidden">
+            <div class="position-relative d-flex px-2 py-4 gap-4 overflow-x-hidden">
                 {% for product in object_list %}
                     {% if product.category.name == 'Smartphones' %}
                     <div class="d-block position-relative">
@@ -445,11 +447,13 @@
                             </svg>
                         {% endif %}
                             <a class="text-decoration-none text-dark" href="{% url 'ecommerce:product-detail' product.id %}">
-                                <div class="card shadow cards-shadow" style="width: 14.5rem;">
+                                <div class="card h-100 bg-light shadow cards-shadow" style="width: 14.5rem;">
                                     <img src="{{ product.get_main_image.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                                    <div class="card-footer bg-light py-4">
+                                    <div class="card-body border-top py-3">
                                         <h4 class="card-title text-primary">$ {{ product.price }}</h4>
-                                        <p class="card-text mb-3">{{ product.name|truncatechars:70 }}</p>
+                                        <p class="card-text m-0">{{ product.name|truncatechars:70 }}</p>
+                                    </div>
+                                    <div class="ps-3 pb-3">
                                         <button class="btn btn-primary">Ver detalles</button>
                                     </div>
                                 </div>

@@ -1,0 +1,17 @@
+<li>
+    <a href="{% url 'ecommerce:category' category.slug %}" class="fs-6 text-secondary text-decoration-none">
+        &raquo;
+        <small>{{ category.name }}</small>
+    </a>
+</li>
+{% if category.children.all %}
+    <div class="d-flex ps-3">
+        <ul class="list-unstyled">
+            {% for child in category.children.all %}
+                {% include 'ecommerce/category_list_widget.html' with category=child %}
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <div class="mb-2"></div>
+{% endif %}

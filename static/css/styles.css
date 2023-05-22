@@ -36,6 +36,10 @@ table {
     font-size: 12px;
 }
 
+.fs-8{
+    font-size: 10px;
+}
+
 .discount {
    /*  transform: scaleX(-1) rotate(80deg); */
     position: absolute;
@@ -62,6 +66,7 @@ table {
     width: 170px; height: 170px
 }
 
+
 /* product-detail */
 
 .product_images:hover {
@@ -71,3 +76,4 @@ table {
 #main_image {
     max-width: 500px;
 }
+

@@ -3,16 +3,9 @@
 
 {% block main %}
     <main class="container my-5 position-relative">
-        
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'ecommerce:home' %}">Tienda</a></li>
-                {% for category in object.category.get_ancestors %}
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'ecommerce:home' %}">{{ category }}</a></li>
-                {% endfor %}
-                <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'ecommerce:home' %}">{{ product.category }}</a></li>
-            </ol>
-        </nav>
+        <ul class="d-flex flex-row-reverse list-unstyled" style="justify-content: start">
+                {% include 'ecommerce/category_breadcrumbs_widget.html' with category=object.category %}
+        </ul>
         <div class="row bg-white rounded p-4 mx-2">
             <div class="col-12 col-lg-1 p-0">
                 <div class="row row-cols-3 gap-2">
@@ -30,6 +23,14 @@
 
             <div class="col-lg-4 card">
                 <div class="card-body mb-5">
+                    <div class="mb-1">
+                        {% if product.created.date > a_week_ago.date %}
+                            <span class="bg-success-subtle text-success fs-7 px-2 py-1 rounded"><b>NUEVO</b></span>
+                        {% endif %}
+                        {% if not product.stock %}
+                            <span class="bg-danger-subtle text-danger fs-7 px-2 py-1 rounded"><b>SIN STOCK</b></span>
+                        {% endif %}
+                    </div>
                     {% if product.on_sale %}
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="discount" width="30px" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
                             <path style="fill:#FF5023;" d="M255.999,512c-2.954,0-5.737-1.144-7.835-3.221l-47.332-46.876l-64.437,16.927
@@ -59,19 +60,26 @@
                                 C339.196,159.763,328.63,159.763,322.108,166.285z"/>
                         </svg>
                     {% endif %}
-                    {% for tag in object.tag.all %}
-                        <a href="#" class="badge rounded-pill text-bg-warning link-underline link-underline-opacity-0">{{ tag }}</a>
-                    {% endfor %}
                     <h5 class="fs-4 mt-3">{{ object.name }}</h5>
                     {{ object.get_ancestors }}
                     <h6 class="fs-1 text-primary my-3">
                         $ {{ object.price }}
                     </h6>
                     <p>{{ object.description }}</p>
+                    {% for tag in object.tag.all %}
+                        <a href="{% url 'ecommerce:tag' tag.slug %}" class="bg-warning text-warning-emphasis fs-7 text-decoration-none px-2 py-1 rounded-pill"><b>{{ tag }}</b></a>
+                    {% endfor %}
                 </div>
                 <div class="d-flex flex-column mb-3 gap-2">
-                    <a href="{% url 'cart:add' object.id %}" class="btn btn-secondary">Agregar a Carrito</a>
-                    <a href="{% url 'cart:add' object.id %}" class="btn btn-primary">Comprar</a>
+                    {% if product.stock %}
+                        <span class="text-secondary">Stock disponible: {{ product.stock }}</span>
+                        <a href="{% url 'cart:add' object.id %}" class="btn btn-secondary">Agregar a Carrito</a>
+                        <a href="{% url 'cart:add' object.id %}" class="btn btn-primary">Comprar</a>
+                    {% else %}
+                        <span class="bg-danger-subtle text-danger fs-7 px-2 py-1 rounded text-center"><b>SIN STOCK</b></span>
+                        <a href="{% url 'ecommerce:category' product.category.slug %}" class="btn btn-secondary">Ver otros productos</a>
+
+                    {% endif %}
                 </div>
             </div>
         </div>

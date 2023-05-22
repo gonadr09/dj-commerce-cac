@@ -1,7 +1,7 @@
 {% load static %}
 {% url 'ecommerce:home' as home_url %}
 
-<nav class="navbar navbar-expand-lg bg-body" data-bs-theme="dark">
+<nav class="navbar sticky-top navbar-expand-lg bg-body" data-bs-theme="dark">
     <div class="container-xl">
     <a class="navbar-brand d-flex gap-1 align-items-center p-2 rounded shadow bg-opacity-50" href="{{ home_url }}">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-pc-display" viewBox="0 0 16 16">
@@ -21,17 +21,17 @@
             <a class="nav-link {% if request.path == home_url %} active {% endif %}" href="{{ home_url }}">Inicio</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Tienda</a>
+            <a class="nav-link" href="{% url 'ecommerce:ecommerce' %}">Tienda</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Ofertas</a>
+            <a class="nav-link" href="{% url 'ecommerce:on-sales' %}">Ofertas</a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorías</a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Computación</a></li>
-                <li><a class="dropdown-item" href="#">Smarphones</a></li>
-                <li><a class="dropdown-item" href="#">Consolas</a></li>
+                {% for category in categories_root %}
+                    <li><a class="dropdown-item" href="{% url 'ecommerce:category' category.slug %}">{{ category.name }}</a></li>
+                {% endfor %}
             </ul>
         </li>
         </ul>

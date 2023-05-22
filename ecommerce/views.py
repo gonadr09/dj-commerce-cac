@@ -1,8 +1,6 @@
-from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from .models import Product
-from django.http import HttpResponseNotFound
+from .models import Product, Category, Tag
 
 
 products = [
@@ -53,7 +51,6 @@ products = [
     },
 ]
 
-
 class Home(ListView):
     model = Product
     template_name = 'ecommerce/index.html'
@@ -64,17 +61,26 @@ class DetailProduct(DetailView):
     template_name = 'ecommerce/product_detail.html'
 
 
-def product_detail(request, id):
-    product = None
-    for item in products:
-        if item['id'] == id:
-            product = item
-            break
-    if product:
-        context = {'product': product}
-        return render(request, 'ecommerce/product_detail.html', context)
-    else:
-        return HttpResponseNotFound('Producto no encontrado. <a href="/">Volver al inicio</a>')
+class ListProducts(ListView):
+    model = Product
+    template_name = 'ecommerce/products_list.html'
+
+
+def category_products(request, category_slug):
+    category = Category.objects.get(slug=category_slug)
+    products = category.get_products_by_category()
+    return render(request, 'ecommerce/products_list.html', {'object_list': products, 'name_view': category})
+
+
+def tag_products(request, tag_slug):
+    tag = Tag.objects.get(slug=tag_slug)
+    products = tag.get_products_by_tag()
+    return render(request, 'ecommerce/products_list.html', {'object_list': products, 'name_view': tag})
+
+
+def on_sales_products(request):
+    products = Product.objects.filter(on_sale=True)
+    return render(request, 'ecommerce/products_list.html', {'object_list': products, 'name_view': 'Ofertas'})
 
 
 def order_list(request):

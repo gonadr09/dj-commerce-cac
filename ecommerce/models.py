@@ -1,6 +1,5 @@
 from django.db import models
 from users.models import CustomUser
-from django.utils.text import slugify
 
 
 class Tag(models.Model):
@@ -12,12 +11,16 @@ class Tag(models.Model):
         verbose_name_plural = 'Etiquetas'
 
     def __str__(self):
-        return self.name   
+        return self.name
+    
+    def get_products_by_tag(self):
+        products = self.product_set.all()
+        return products
 
 
 class Category(models.Model):
     name = models.CharField(max_length=128, verbose_name="Categoría", unique=True)
-    padre = models.ForeignKey('self', related_name='Children', on_delete=models.CASCADE, blank=True, null=True)
+    parent = models.ForeignKey('self', related_name='children', on_delete=models.CASCADE, blank=True, null=True)
     slug = models.SlugField(max_length=128, unique=True)
 
     class Meta:
@@ -26,14 +29,24 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_ancestors(self):
-        ancestors = []
+    
+    def get_children(self):
+        return self.children.all()
+    
+    def get_parents(self):
+        parents = []
         category = self
-        while category.padre:
-            ancestors.append(category.padre)
-            category = category.padre
-        return ancestors
+        while category.parent:
+            parents.append(category.parent)
+            category = category.parent
+        return parents
+
+    def get_products_by_category(self):
+        products = self.product_set.all()
+        subcategories = self.children.all()
+        for subcategory in subcategories:
+            products |= subcategory.get_products_by_category()
+        return products
 
 
 class Product(models.Model):
@@ -70,8 +83,8 @@ class Image(models.Model):
         verbose_name_plural = 'Imágenes'
 
     def __str__(self):
-        return self.image.name
-
+        return self.image.url
+        
 
 class Order(models.Model):
     STATUS_ORDER = [

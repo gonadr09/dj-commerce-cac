@@ -1,0 +1,9 @@
+<li>
+    <span class="ms-1">></span>
+    <a href="{% url 'ecommerce:category' category.slug %}">{{ category }}</a>
+</li>
+{% if category.parent %}
+    {% include 'ecommerce/category_breadcrumbs_widget.html' with category=category.parent %}
+{% else %}
+    <li class="breadcrumb-item"><a href="{% url 'ecommerce:ecommerce' %}">Tienda</a></li>
+{% endif %}
