@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser
+from django.core.exceptions import ValidationError
 
 
 class Tag(models.Model):
@@ -93,28 +94,40 @@ class Order(models.Model):
        ('C', 'Cancelado'),
        ('F', 'Finalizado')
     ]
-    status = models.CharField(max_length=1, choices=STATUS_ORDER, default='I')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_ORDER, default='I', verbose_name="Estado")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="Cliente")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    products = models.ManyToManyField(Product, through='OrderProduct')
+    products = models.ManyToManyField(Product, through='OrderProduct', verbose_name="Productos")
 
     class Meta:
         verbose_name = 'Pedido'
         verbose_name_plural = 'Pedidos'
 
     def __str__(self):
-        return self.id
+        return f'Pedido #{self.id}'
+    
+    def sum_total(self):
+        return sum(item.total() for item in self.items.all())
 
 
 class OrderProduct(models.Model):
-    producto = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cantidad = models.PositiveIntegerField(verbose_name="Cantidad")
-    pedido = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.DO_NOTHING, verbose_name="Producto")
+    price = models.DecimalField(max_digits=15, decimal_places=2, verbose_name="Precio")
+    amount = models.PositiveIntegerField(verbose_name="Cantidad")
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, verbose_name="Pedido", related_name='items')
 
     class Meta:
         verbose_name = 'Producto del pedido'
         verbose_name_plural = 'Productos del Pedido'
 
     def __str__(self):
-        return self.producto
+        return self.product.name
+    
+    def total(self):
+        return self.price * self.amount
+
+    def save(self, *args, **kwargs):
+        if self.product.stock < self.amount:
+            raise ValidationError(f'La cantidad supera el stock disponible de "{self.product.name[:25]}"')
+        super().save(*args, **kwargs)

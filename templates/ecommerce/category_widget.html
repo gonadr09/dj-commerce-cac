@@ -8,7 +8,7 @@
     <div class="d-flex ps-3">
         <ul class="list-unstyled">
             {% for child in category.children.all %}
-                {% include 'ecommerce/category_list_widget.html' with category=child %}
+                {% include 'ecommerce/category_widget.html' with category=child %}
             {% endfor %}
         </ul>
     </div>

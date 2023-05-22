@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Home, DetailProduct, ListProducts, category_products, tag_products, on_sales_products, order_list, order_detail
+from .views import Home, DetailProduct, ListProducts, category_products, tag_products, on_sales_products, order_create, DetailOrder, ListOrder
 
 app_name = 'ecommerce'
 
@@ -10,7 +10,7 @@ urlpatterns = [
     path('ecommerce/category/<slug:category_slug>', category_products, name='category'),
     path('ecommerce/tag/<slug:tag_slug>', tag_products, name='tag'),
     path('ecommerce/on-sales/', on_sales_products, name='on-sales'),
-    path('order/list/', order_list, name='order-list'),
-    path('order/detail/', order_detail, name='order-detail'),
-    #buscador
+    path('order/create/', order_create, name='order-create'),
+    path('order/list/', ListOrder.as_view(), name='order-list'),
+    path('order/detail/<int:pk>/', DetailOrder.as_view(), name='order-detail'),
 ]

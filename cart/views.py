@@ -18,7 +18,11 @@ def add_to_cart(request, product_id):
         cart = get_cart(request)
         product = get_object_or_404(Product, id=product_id)
         product_id = str(product_id)
-        if str(product_id) not in cart:
+        if product_id not in cart:
+            # Check stock first
+            if product.stock <= 0:
+                messages.error(request, 'No hay más productos en stock', extra_tags='danger')
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             cart[product_id] = {
                 'name': product.name,
                 'image': product.get_main_image().image.url,
@@ -27,6 +31,10 @@ def add_to_cart(request, product_id):
                 'sum': str(product.price),
             }
         else:
+            # Check stock first
+            if int(cart[product_id]['amount']) >= product.stock:
+                messages.error(request, 'No hay más productos en stock', extra_tags='danger')
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             cart[product_id]['amount'] += 1
             cart[product_id]['sum'] = '{:.2f}'.format(float(cart[product_id]['sum']) + float(cart[product_id]['price']))
         messages.success(request, 'Agregaste el producto al carrito', extra_tags='success')
