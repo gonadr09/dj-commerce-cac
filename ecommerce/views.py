@@ -113,7 +113,7 @@ def order_create(request):
     # Clean cart
     clear_cart(request)
     messages.success(request, 'Pedido creado correctamente', extra_tags='success')
-    return render(request, 'ecommerce/order_detail.html')
+    return redirect('ecommerce:order-detail', order.id)
 
 
 class ListOrder(ListView):
