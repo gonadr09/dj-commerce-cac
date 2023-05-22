@@ -32,7 +32,7 @@ def signup_view(request):
             form = CustomUserCreationForm(request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, '¡Tu cuenta ha sido creada correctamente! Ya podés iniciar sesión.')
+                messages.success(request, '¡Tu cuenta ha sido creada correctamente! Ya podés iniciar sesión.', extra_tags='success')
                 return redirect('users:login')
             else:
                 return render(request, 'users/signup.html', {'form': form})
