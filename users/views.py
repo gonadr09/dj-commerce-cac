@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from .forms import CustomAuthenticationForm, CustomUserCreationForm, CustomUserChangeForm
 from django.contrib import messages
+from .forms import CheckoutForm
 
 
 def login_view(request):
@@ -44,3 +45,24 @@ def signup_view(request):
     else:
         messages.error(request, 'Ya estás logueado en el sitio')
         return redirect('ecommerce:home')
+    
+
+def checkout_confirmacion(request):
+    
+    return render(request, 'checkout/confirmacion.html')
+def checkout(request):
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # Procesa los datos del formulario y finaliza la compra
+            # según tus requerimientos
+
+            # Ejemplo: Guardar los datos del formulario en la base de datos
+            form.save()
+
+            # Redireccionar a la página de confirmación de compra
+            return redirect(reverse('checkout_confirmacion'))
+    else:
+        form = CheckoutForm()
+
+    return render(request, 'checkout/checkout.html', {'form': form})
