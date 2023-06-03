@@ -82,34 +82,27 @@ def order_create(request):
     # Get products
     cart_products_id = cart.keys()
     products = Product.objects.filter(id__in=cart_products_id)
-    '''
     # Check stock
     for product in products:
         amount = cart[str(product.id)]['amount']
         if amount > product.stock:
-            messages.error(request, f'La cantidad supera el stock disponible del producto "{product.name[:25]}"', extra_tags='danger')
+            messages.error(request, f'La cantidad supera el stock disponible del producto "{product.name}"', extra_tags='danger')
             return redirect('ecommerce:ecommerce')
-    ''' 
     # Create order
     order = Order(user=request.user)
     order.save()
     # Add items
     for product in products:
         amount = cart[str(product.id)]['amount']
-        try:
-            OrderProduct.objects.create(
-                product=product,
-                amount=amount,
-                order=order,
-                price=product.price
-            )
-            # Subtract stock
-            product.stock -= amount
-            product.save()
-        except Exception as e:
-            messages.error(request, str(e), extra_tags='danger')
-            order.delete()  # Eliminar el pedido si hay algún error
-            return redirect('ecommerce:ecommerce')
+        OrderProduct.objects.create(
+            product=product,
+            amount=amount,
+            order=order,
+            price=product.price
+        )
+        # Subtract stock
+        product.stock -= amount
+        product.save()
     # Clean cart
     clear_cart(request)
     messages.success(request, 'Pedido creado correctamente', extra_tags='success')

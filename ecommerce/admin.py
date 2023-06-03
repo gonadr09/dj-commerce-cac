@@ -10,6 +10,7 @@ class ImageInline(admin.TabularInline):
     model = Image
     extra = 0
 
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
@@ -35,4 +36,4 @@ class OrderAdmin(admin.ModelAdmin):
     total_price.short_description = 'Precio total'
 
 
-admin.site.register(OrderProduct)
+#admin.site.register(OrderProduct)

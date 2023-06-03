@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import CustomUser
 
 
+# Formulario basado en clases (AuthenticationForm hereda de forms.Form) -> class AuthenticationForm(forms.Form)
 class CustomAuthenticationForm(AuthenticationForm):
     username = UsernameField(
         widget=forms.TextInput(attrs={
@@ -25,7 +26,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         required=True
     )
 
-
+# Formulario asociado a un modelo (UserCreationForm hereda de forms.ModelForm) -> class UserCreationForm(forms.ModelForm)
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
@@ -38,6 +39,7 @@ class CustomUserCreationForm(UserCreationForm):
             field.widget.attrs['placeholder'] = ' '
 
 
+# Formulario asociado a un modelo (UserChangeForm hereda de forms.ModelForm) -> class UserChangeForm(forms.ModelForm)
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
