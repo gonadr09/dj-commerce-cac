@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 from .views import Home, DetailProduct, ListProducts, category_products, tag_products, on_sales_products, order_create, DetailOrder, ListOrder
 
 app_name = 'ecommerce'
@@ -11,6 +12,6 @@ urlpatterns = [
     path('ecommerce/tag/<slug:tag_slug>', tag_products, name='tag'),
     path('ecommerce/on-sales/', on_sales_products, name='on-sales'),
     path('order/create/', order_create, name='order-create'),
-    path('order/list/', ListOrder.as_view(), name='order-list'),
-    path('order/detail/<int:pk>/', DetailOrder.as_view(), name='order-detail'),
+    path('order/list/', login_required(ListOrder.as_view()), name='order-list'),
+    path('order/detail/<int:pk>/', login_required(DetailOrder.as_view()), name='order-detail'),
 ]

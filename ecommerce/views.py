@@ -1,4 +1,7 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.db.models import Q
@@ -73,6 +76,7 @@ def on_sales_products(request):
     })
 
 
+@login_required
 def order_create(request):
     cart = request.session.get('cart')
     # Check if cart is empty
@@ -113,11 +117,25 @@ class ListOrder(ListView):
     model = Order
     template_name = 'ecommerce/order_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user = self.request.user
+        queryset = queryset.filter(Q(user=user))
+        return queryset
+
 
 class DetailOrder(DetailView):
     model = Order
     template_name = 'ecommerce/order_detail.html'
-
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Verificar si el pedido pertenece al usuario logueado
+        if self.object.user != self.request.user:
+            return render(request, '404.html', status=404)
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+    
 
 def error_404(request, exception):
     return render(request, '404.html', status=404)
