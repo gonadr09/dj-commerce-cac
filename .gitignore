@@ -37,3 +37,6 @@ __pycache__/
 # Dependency directories
 venv/
 env/
+
+# DB
+db.sqlite3
