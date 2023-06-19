@@ -368,7 +368,7 @@ class Migration(migrations.Migration):
             name='Image',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(upload_to='producto/', verbose_name='Imagen')),
+                ('image', models.ImageField(upload_to='product/', verbose_name='Imagen')),
                 ('product', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ecommerce.product')),
             ],
             options={
