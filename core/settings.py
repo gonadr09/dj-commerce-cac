@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='django-insecure-u32p!45-kd=4_t1e-_+e2zl-xo^84qmg$ep-jcm)^j^^6f9bzj')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -87,6 +83,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# LOCAL
 SQLITE = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -94,6 +91,7 @@ SQLITE = {
     }
 }
 
+# LOCAL
 POSTGRESQL = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -105,19 +103,21 @@ POSTGRESQL = {
     }
 }
 
-RENDER = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
+PYTHONANYWHERE = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gonadr09$dj-commerce-cac',
+        'USER': 'gonadr09',
+        'PASSWORD': 'pythonanywhere123',
+        'HOST': 'gonadr09.mysql.pythonanywhere-services.com',
+    }
 }
 
 if DEBUG:
     #DATABASES = POSTGRESQL
     DATABASES = SQLITE
 else:
-    DATABASES = RENDER
+    DATABASES = PYTHONANYWHERE
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
