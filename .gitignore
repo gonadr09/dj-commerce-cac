@@ -20,7 +20,7 @@ __pycache__/
 
 # Django migration files
 *.py[eo]
-*/migrations/*.py
+#*/migrations/*.py
 */migrations/*.pyc
 */migrations/__pycache__/
 
