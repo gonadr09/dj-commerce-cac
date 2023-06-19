@@ -3,8 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-from django.core.files import File
-import os
+
 
 def add_examples(apps, schema_editor):
 

@@ -206,7 +206,7 @@ def add_examples(apps, schema_editor):
     product6 = Product(
         name='Samsung Galaxy A54 5g 256gb 8gb Ram Awesome Graphite',
         description='Dispositivo liberado para que elijas la compañía telefónica que prefieras. Compatible con redes 5G. Pantalla de 6.4". Cámara delantera de 32Mpx. Batería de 5000mAh. Memoria interna de 256GB.',
-        price='226999,00',
+        price=226999.00,
         on_sale=False,
         stock='4',
         category=smartphones,
@@ -217,18 +217,18 @@ def add_examples(apps, schema_editor):
     product7 = Product(
         name='Apple iPhone 13 (128 GB) - Azul medianoche',
         description='Pantalla Super Retina XDR de 6.1 pulgadas.(1) Modo Cine con baja profundidad de campo y cambios de enfoque automáticos en tus videos. Sistema avanzado de dos cámaras de 12 MP (gran angular y ultra gran angular) con Estilos Fotográficos, HDR Inteligente 4,',
-        price='484157,00',
+        price=484157.00,
         on_sale=False,
         stock='0',
         category=smartphones,
     )
     product7.save()
     product7.tag.add(iphone, apple, azul)
-
+    
     product8 = Product(
         name='Moto E22 32gb 3gb Ram Azul',
         description='Dispositivo liberado para que elijas la compañía telefónica que prefieras. Memoria interna de 32GB.',
-        price='46400,00',
+        price=46400.00,
         on_sale=False,
         stock='10',
         category=smartphones,
@@ -239,7 +239,7 @@ def add_examples(apps, schema_editor):
     product9 = Product(
         name='Samsung Galaxy A04 128 GB negro 4 GB RAM',
         description='Dispositivo liberado para que elijas la compañía telefónica que prefieras. Pantalla PLS de 6.5". Tiene 2 cámaras traseras de 50Mpx/2Mpx. Cámara delantera de 5Mpx. Batería de 5000mAh. Memoria interna de 128GB. Con reconocimiento facial.',
-        price='79999,00',
+        price=79999.00,
         on_sale=True,
         stock='10',
         category=smartphones,
@@ -257,7 +257,17 @@ def add_examples(apps, schema_editor):
     )
     product10.save()
     product10.tag.add(negro, gamer, asus)
+    
 
+    # IMAGES
+    Image = apps.get_model('ecommerce', 'Image')
+    products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10]
+    for index_product, product in enumerate(products, start=1):
+        for index_image in range(1,4):
+            image_instance = Image(product=product)
+            image_instance.image.name = f'product/product{index_product}-{index_image}.jpg'
+            image_instance.save()
+        
 
 class Migration(migrations.Migration):
 
